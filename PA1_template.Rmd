@@ -7,16 +7,34 @@ output:
 
 
 ## Loading and preprocessing the data
+ 
+First Line  
+Second Line
 
-
-
+```{r}
+library(plyr)
+df <-read.csv("activity.csv")
+df = transform(df,date = factor(date))
+str(df)
+```
 ## What is mean total number of steps taken per day?
 
 
 
+
+```{r}
+dailysteps <- ddply(df,.(date),summarize,steps=sum(steps,na.rm=TRUE))
+dailysteps
+hist(dailysteps$steps)
+mean(dailysteps$steps)
+median(dailysteps$steps)
+```
+
+
 ## What is the average daily activity pattern?
-
-
+```{r}
+plot(dailysteps$date, dailysteps$steps,type = "l")
+```
 
 ## Imputing missing values
 
